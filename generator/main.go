@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json/v2"
+	"fmt"
 	"math/rand/v2"
 	"os"
 	"os/signal"
@@ -45,7 +46,11 @@ func main() {
 		Topic:    "lab",
 		Balancer: &kafka.LeastBytes{},
 	}
-	defer writer.Close()
+	defer func() {
+		if err := writer.Close(); err != nil {
+			fmt.Fprintln(os.Stderr, "close error:", err)
+		}
+	}()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	sig := make(chan os.Signal, 1)

@@ -21,6 +21,8 @@ services:
       CLUSTER_ID: 5L6g3nShT-eMCtK--X86sw
     volumes:
       - kafka_data:/var/lib/kafka/data
+    networks:
+      - flink
     healthcheck:
       test:
         [
@@ -42,6 +44,9 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
     depends_on:
       - kafka
+    networks:
+      flink:
+        ipv4_address: 10.89.0.10
 
   taskmanager:
     image: docker.io/library/flink:1.18-scala_2.12-java11
@@ -52,6 +57,14 @@ services:
       - TASK_MANAGER_NUMBER_OF_TASK_SLOTS=2
     depends_on:
       - jobmanager
+    extra_hosts:
+      - "jobmanager:10.89.0.10"
+    networks:
+      - flink
+
+networks:
+  flink:
+    driver: bridge
 
 volumes:
   kafka_data:

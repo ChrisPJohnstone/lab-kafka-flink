@@ -1,13 +1,10 @@
 BINARY           ?= generator
 CONTAINER_ENGINE ?= podman
 
-.PHONY: run clean lint
+.PHONY: clean lint
 
 $(BINARY): $(shell find . -type f -name '*.go')
 	go build -o $(BINARY) .
-
-run: $(BINARY)
-	./$(BINARY)
 
 clean:
 	rm -f $(BINARY)

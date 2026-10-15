@@ -11,45 +11,17 @@ A lab project to help me learn how kafka & flink work
 
 ### Quickstart
 
-There are full details below but this is the fastpath to results
-
-```sh
-make -C kafka topic
-make -C generator run &
-podman exec kafka /opt/kafka/bin/kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
-  --topic lab \
-  --from-beginning
-```
-
-#### Kafka
-
-- Create container
+- Start Containers
   ```sh
-  make -C kafka
+  make
   ```
-- Create topic
+- Start generating data
   ```sh
-  make -C kafka topic
+  ./generator/generator
   ```
-- Destroy container
+- Destroy Containers and binaries
   ```sh
-  make -C kafka destroy
-  ```
-
-#### Generator
-
-- Compile
-  ```sh
-  make -C generator
-  ```
-- Execute
-  ```sh
-  make -C generator run
-  ```
-- Clean up
-  ```sh
-  make -C generator clean
+  make destroy
   ```
 
 ## Roadmap

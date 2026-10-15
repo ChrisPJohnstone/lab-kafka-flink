@@ -35,6 +35,8 @@ func newRecord() record {
 }
 
 func main() {
-	record := newRecord()
-	fmt.Printf("%s\n", record)
+	for {
+		record := newRecord()
+		fmt.Printf("%s\n", record)
+	}
 }

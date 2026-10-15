@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json/v2"
 	"fmt"
 	"math/rand/v2"
 	"time"
@@ -11,10 +12,10 @@ import (
 const letters = "abcdefghijklmnopqrstuvwxyz"
 
 type record struct {
-	time time.Time
-	id   string
-	name string
-	age  int
+	Time time.Time `json:"time"`
+	Id   string    `json:"id"`
+	Name string    `json:"name"`
+	Age  int       `json:"age"`
 }
 
 func randString(length int) string {
@@ -27,16 +28,20 @@ func randString(length int) string {
 
 func newRecord() record {
 	return record{
-		time: time.Now(),
-		id:   uuid.NewString(),
-		name: randString(rand.IntN(25)),
-		age:  rand.IntN(100),
+		Time: time.Now(),
+		Id:   uuid.NewString(),
+		Name: randString(rand.IntN(25)),
+		Age:  rand.IntN(100),
 	}
 }
 
 func main() {
 	for {
 		record := newRecord()
-		fmt.Printf("%s\n", record)
+		builder, err := json.Marshal(record)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%s\n", string(builder))
 	}
 }

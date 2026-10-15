@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+_KAFKA_HOST="localhost:9092"
+
+function _kafka-topics() {
+    "${CONTAINER_ENGINE:-podman}" exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server "${_KAFKA_HOST}" "$@"
+}
+
+function _kafka-producer() {
+    "${CONTAINER_ENGINE:-podman}" exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list "${_KAFKA_HOST}" "$@"
+}
+
+function _kafka-consumer() {
+    "${CONTAINER_ENGINE:-podman}" exec -it kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server "${_KAFKA_HOST}" "$@"
+}
+
+# Examples
+# _kafka-topics --list
+# _kafka-topics --topic lab --create
+# _kafka-topics --topic lab --delete
+# _kafka-producer --topic lab
+# _kafka-consumer --topic lab --from-beginning

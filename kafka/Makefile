@@ -1,9 +1,12 @@
 CONTAINER_ENGINE ?= podman
 
-.PHONY: up down
+.PHONY: deploy destroy topic
 
-up:
+deploy:
 	$(CONTAINER_ENGINE) compose up -d
 
-down:
+destroy:
 	$(CONTAINER_ENGINE) compose down -v
+
+topic: deploy
+	$(CONTAINER_ENGINE) exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server "localhost:9092" --topic lab --create

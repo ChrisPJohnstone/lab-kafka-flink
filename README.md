@@ -33,4 +33,7 @@ A lab project to help me learn how kafka & flink work
 
 - [x] Data Generator
 - [x] Kafa Setup
-- [x] Flink Setup
+- [ ] Flink Setup
+  - [x] Reading from Kafka using datastream
+  - [ ] Writing to files
+  - [ ] Batching up Records

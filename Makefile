@@ -16,7 +16,7 @@ generator:
 	make -C generator
 
 jar: deploy
-	mvn -f flink-job/pom.xml clean package
+	make -C flink-job
 
 job: jar
 	$(CONTAINER_ENGINE) cp $(FLINK_JOB_JAR) flink-jobmanager:/tmp/flink-job.jar
@@ -24,4 +24,5 @@ job: jar
 
 destroy:
 	make -C generator clean
+	make -C flink-job clean
 	$(CONTAINER_ENGINE) compose down -v

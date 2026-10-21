@@ -2,9 +2,9 @@ CONTAINER_ENGINE ?= podman
 FLINK_JOB_JAR    ?= flink-job/target/flink-job-0.1.0.jar
 FLINK_JOB_MAIN   ?= batcher.Batcher
 
-.PHONY: all deploy topic generator destroy jar job
+.PHONY: all deploy topic generator jar job destroy
 
-all: topic generator
+all: topic generator jar
 
 deploy:
 	$(CONTAINER_ENGINE) compose up -d
@@ -15,10 +15,10 @@ topic: deploy
 generator:
 	make -C generator
 
-jar: topic
+jar:
 	make -C flink-job
 
-job: jar
+job: jar topic
 	$(CONTAINER_ENGINE) cp $(FLINK_JOB_JAR) flink-jobmanager:/tmp/flink-job.jar
 	$(CONTAINER_ENGINE) exec -it flink-jobmanager flink run -c $(FLINK_JOB_MAIN) /tmp/flink-job.jar
 

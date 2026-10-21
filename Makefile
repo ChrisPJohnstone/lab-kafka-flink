@@ -1,6 +1,6 @@
 CONTAINER_ENGINE ?= podman
-FLINK_JOB_JAR ?= flink-job/target/flink-job-0.1.0.jar
-FLINK_JOB_MAIN ?= batcher.Batcher
+FLINK_JOB_JAR    ?= flink-job/target/flink-job-0.1.0.jar
+FLINK_JOB_MAIN   ?= batcher.Batcher
 
 .PHONY: all deploy topic generator destroy jar job
 

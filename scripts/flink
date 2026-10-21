@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+function flink() {
+    "${CONTAINER_ENGINE:-podman}" exec flink-jobmanager flink "${@}"
+}

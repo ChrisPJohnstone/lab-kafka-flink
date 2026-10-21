@@ -7,6 +7,7 @@ A lab project to help me learn how kafka & flink work
 ### Pre-Requisites
 
 - Golang
+- Java 11 and Maven
 - A container compose method e.g. `podman compose` or `docker compose`
 
 ### Quickstart
@@ -19,6 +20,10 @@ A lab project to help me learn how kafka & flink work
   ```sh
   ./generator/generator
   ```
+- Start flink job (currently outputs to screen)
+  ```sh
+  make job
+  ```
 - Destroy Containers and binaries
   ```sh
   make destroy
@@ -28,4 +33,4 @@ A lab project to help me learn how kafka & flink work
 
 - [x] Data Generator
 - [x] Kafa Setup
-- [ ] Flink Setup
+- [x] Flink Setup

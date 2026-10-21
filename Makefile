@@ -15,7 +15,7 @@ topic: deploy
 generator:
 	make -C generator
 
-jar: deploy
+jar: topic
 	make -C flink-job
 
 job: jar

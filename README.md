@@ -12,7 +12,7 @@ A lab project to help me learn how kafka & flink work
 
 ### Quickstart
 
-- Start Containers
+- Start Containers, Compile Generator & Start Flink Job
   ```sh
   make
   ```
@@ -20,9 +20,9 @@ A lab project to help me learn how kafka & flink work
   ```sh
   ./generator/generator
   ```
-- Start flink job (currently outputs to screen)
+- See data being written to output/ dir
   ```sh
-  make job
+  ls -larH output/
   ```
 - Destroy Containers and binaries
   ```sh
@@ -33,7 +33,7 @@ A lab project to help me learn how kafka & flink work
 
 - [x] Data Generator
 - [x] Kafa Setup
-- [ ] Flink Setup
+- [x] Flink Setup
   - [x] Reading from Kafka using datastream
-  - [ ] Writing to files
-  - [ ] Batching up Records
+  - [x] Writing to files
+  - [x] Batching up Records

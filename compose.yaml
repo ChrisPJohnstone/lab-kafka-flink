@@ -59,6 +59,8 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
       - TASK_MANAGER_NUMBER_OF_TASK_SLOTS=2
+    volumes:
+      - ./output:/output:U
     depends_on:
       - jobmanager
     extra_hosts:

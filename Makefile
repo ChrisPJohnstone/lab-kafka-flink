@@ -19,10 +19,13 @@ jar:
 	make -C flink-job
 
 job: jar topic
+	mkdir -p output
+	chmod 777 output
 	$(CONTAINER_ENGINE) cp $(FLINK_JOB_JAR) flink-jobmanager:/tmp/flink-job.jar
-	$(CONTAINER_ENGINE) exec -it flink-jobmanager flink run -c $(FLINK_JOB_MAIN) /tmp/flink-job.jar
+	$(CONTAINER_ENGINE) exec flink-jobmanager flink run -d --class $(FLINK_JOB_MAIN) /tmp/flink-job.jar
 
 destroy:
+	rm -rf output/
 	make -C generator clean
 	make -C flink-job clean
 	$(CONTAINER_ENGINE) compose down -v

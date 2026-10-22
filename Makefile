@@ -25,7 +25,7 @@ job: jar topic
 	$(CONTAINER_ENGINE) exec flink-jobmanager flink run -d --class $(FLINK_JOB_MAIN) /tmp/flink-job.jar
 
 destroy:
-	rm -rf output/
 	make -C generator clean
 	make -C flink-job clean
 	$(CONTAINER_ENGINE) compose down -v
+	$(CONTAINER_ENGINE) unshare rm -rf output

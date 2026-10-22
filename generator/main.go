@@ -15,6 +15,7 @@ import (
 )
 
 const letters = "abcdefghijklmnopqrstuvwxyz"
+const batchSize = 10000 // TODO: Move to arg
 
 type record struct {
 	Time time.Time `json:"time"`
@@ -60,12 +61,15 @@ func main() {
 		cancel()
 	}()
 	for {
-		record := newRecord()
-		builder, err := json.Marshal(record)
-		if err != nil {
-			panic(err)
+		batch := make([]kafka.Message, 0, batchSize)
+		for range batchSize {
+			record, err := json.Marshal(newRecord())
+			if err != nil {
+				panic(err)
+			}
+			batch = append(batch, kafka.Message{Value: record})
 		}
-		err = writer.WriteMessages(ctx, kafka.Message{Value: builder})
+		err := writer.WriteMessages(ctx, batch...)
 		if err != nil {
 			panic(err)
 		}
